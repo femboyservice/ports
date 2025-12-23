@@ -10,8 +10,8 @@ windcharge settings <setting> <value>
 mace give <player>
 ```
 
-**Resource Pack :: https://i.e-z.host/ews2wga8.zip**
-
+Resource Pack :: https://i.e-z.host/ews2wga8.zip <br>
+/!\ **Necessite Optifine** /!\
 ---
 
 ### Supports:
@@ -34,7 +34,7 @@ mace give <player>
 - [@BananaPuncher714](https://github.com/BananaPuncher714)
   - [NBTEditor](https://github.com/BananaPuncher714/NBTEditor)
     
-- [Apollo](https://lunarclient.dev/apollo/introduction) & [LunarClient](https://www.lunarclient.com/)
+- [LunarClient](https://www.lunarclient.com/)
   - [Apollo-Api](https://lunarclient.dev/apollo/downloads)
     - [Cooldown module](https://lunarclient.dev/apollo/developers/modules/cooldown)
     - [Item glint](https://lunarclient.dev/apollo/developers/modules/glint)
