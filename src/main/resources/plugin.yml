@@ -1,0 +1,11 @@
+name: ports
+version: '${project.version}'
+main: scriptservice.ports.Main
+depend:
+  - Apollo-Bukkit
+
+commands:
+  windcharge:
+    description: holder command for windcharge
+  mace:
+      description: holder command for mace
