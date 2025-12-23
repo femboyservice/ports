@@ -2,14 +2,18 @@
 > On est en 1.21 oùùù ??. *(et nan, on est en 1.8.9)* <br></br>
 > **mon troisieme projet, *déjà*. <br><sub>c'est rapide :)**</sub></br>
 
-## Commandes:
+## Commandes et ressource pack: 
 ```
 windcharge give <player>
 windcharge settings <setting> <value>
 
 mace give <player>
 ```
+
+**Resource Pack :: https://i.e-z.host/ews2wga8.zip**
+
 ---
+
 ### Supports:
 - Lunar Client 
     - Cooldown module
