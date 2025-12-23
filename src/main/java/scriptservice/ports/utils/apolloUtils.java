@@ -2,7 +2,6 @@ package scriptservice.ports.utils;
 
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.common.icon.AdvancedResourceLocationIcon;
-import com.lunarclient.apollo.common.icon.ItemStackIcon;
 import com.lunarclient.apollo.common.icon.SimpleResourceLocationIcon;
 import com.lunarclient.apollo.module.cooldown.Cooldown;
 import com.lunarclient.apollo.module.cooldown.CooldownModule;

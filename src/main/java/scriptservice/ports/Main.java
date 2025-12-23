@@ -15,9 +15,6 @@ import scriptservice.ports.windcharge.windchargeUtils;
 
 public final class Main extends JavaPlugin {
     // fonctions
-    public String formatBracket(ChatColor color, String text) {
-        return (color+"{"+text+color+"}"+ChatColor.RESET);
-    }
     public String formatGreaterArrow(ChatColor color, ChatColor textColor, String text) {
         return (color+"> "+textColor+text+ChatColor.RESET);
     }

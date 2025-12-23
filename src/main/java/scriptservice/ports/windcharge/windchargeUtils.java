@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import scriptservice.ports.Main;
 import scriptservice.ports.utils.ItemUtil;
 
 import java.util.Collections;

@@ -177,8 +177,6 @@ public class windchargeCommand implements CommandExecutor {
                         break;
                     default:
                         player.sendMessage(main.windchargeUtils.errorPrefix+"'" + setting + "' n'est pas un parametre valide.");
-                        valueChanged = null;
-                        cancel = true;
                         break;
                 }
 

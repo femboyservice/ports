@@ -21,9 +21,6 @@ public class maceUtils {
     public String formatBracket(ChatColor color, String text) {
         return (color+"{"+text+color+"}"+ChatColor.RESET);
     }
-    public String formatGreaterArrow(ChatColor color, ChatColor textColor, String text) {
-        return (color+"> "+textColor+text+ChatColor.RESET);
-    }
 
     // strings
     public final String itemName = ("" + ChatColor.RESET + ChatColor.LIGHT_PURPLE + "Mace");
@@ -74,8 +71,8 @@ public class maceUtils {
             );
         } else {
             meta.setLore(
-                    Arrays.asList(
-                            ChatColor.RESET+""+ChatColor.GRAY+"Unbreakable"
+                    Collections.singletonList(
+                            ChatColor.RESET + "" + ChatColor.GRAY + "Unbreakable"
                     )
             );
         }
