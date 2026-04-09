@@ -127,6 +127,6 @@ public class windchargeCommand extends commandManager {
             }
         }
 
-        return null;
+        return completions;
     }
 }
