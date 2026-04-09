@@ -1,25 +1,12 @@
-package scriptservice.ports.utils;
+package scriptservice.ports.utils.web;
 
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 
 // from https://lunarclient.dev/apollo/developers/modules/glint
 public class ItemUtil {
-
-    public static ItemStack itemWithName(Material material, String name) {
-        ItemStack item = new ItemStack(material);
-
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.setDisplayName(name);
-
-        item.setItemMeta(itemMeta);
-        return item;
-    }
-
     public static ItemStack addTag(ItemStack item, String key, Object value) {
         net.minecraft.server.v1_8_R3.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
         NBTTagCompound tag = nmsItem.hasTag() ? nmsItem.getTag() : new NBTTagCompound();

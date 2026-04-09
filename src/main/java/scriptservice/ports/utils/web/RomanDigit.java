@@ -1,4 +1,4 @@
-package scriptservice.ports.utils;
+package scriptservice.ports.utils.web;
 
 // from https://stackoverflow.com/questions/48356999/java-conversion-of-arabic-numbers-to-roman-numerals -> slightly edited
 public class RomanDigit {

@@ -1,4 +1,4 @@
-package scriptservice.ports.utils;
+package scriptservice.ports.utils.web;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -1060,7 +1060,6 @@ public class NBTEditor {
 
             Object tileEntity = getMethod( MethodId.getTileEntity ).invoke( nmsWorld, blockPosition );
 
-            // TODO This may use the new ResolvableProfile in 1.21+
             if ( getNMSClass( ClassId.TileEntitySkull ).isInstance( tileEntity) ) {
                 getMethod( MethodId.setGameProfile ).invoke( tileEntity, profile );
             } else {

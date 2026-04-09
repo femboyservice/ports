@@ -4,13 +4,11 @@
 
 ## Commandes et ressource pack: 
 ```
-windcharge give <player>
-windcharge settings <setting> <value>
-
-mace give <player>
+windcharge give <player> <OPTIONAL ammount>
+mace give <player> <OPTIONAL windburstLevel>
 ```
 
-Resource Pack :: https://i.e-z.host/ews2wga8.zip <br>
+Resource Pack :: https://i.e-z.host/5rswe4dh.zip <br>
 /!\ **Necessite Optifine** /!\
 ---
 

@@ -1,102 +1,93 @@
 package scriptservice.ports.utils;
 
 import com.lunarclient.apollo.Apollo;
-import com.lunarclient.apollo.common.icon.AdvancedResourceLocationIcon;
-import com.lunarclient.apollo.common.icon.SimpleResourceLocationIcon;
+import com.lunarclient.apollo.common.icon.ItemStackIcon;
+import com.lunarclient.apollo.mods.impl.ModCooldowns;
+import com.lunarclient.apollo.module.ApolloModuleManager;
 import com.lunarclient.apollo.module.cooldown.Cooldown;
 import com.lunarclient.apollo.module.cooldown.CooldownModule;
-
-import org.bukkit.entity.Player;
-import scriptservice.ports.Main;
+import com.lunarclient.apollo.module.modsetting.ModSettingModule;
 import com.lunarclient.apollo.player.ApolloPlayer;
+import com.lunarclient.apollo.player.ApolloPlayerManager;
+
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+
+import scriptservice.ports.Main;
 
 import java.time.Duration;
-import java.util.Optional;
 
-public class apolloUtils {
-    private final Main main;
-    public apolloUtils(Main main) {this.main = main;}
-
-    // consts
-    CooldownModule cooldownModule = Apollo.getModuleManager().getModule(CooldownModule.class);
-
-    // fonctions
-    // oui bon, j'avoue qu'il y a des fonctions sacrement inutile ici, mais c'est pour apprendre comment fonctionne apollo :)
-    private void showSimpleResourcePackCooldown(Player player, String cooldownName, String pathName, long cooldown, int size) {
-        boolean runningLunarClient = Apollo.getPlayerManager().hasSupport(player.getUniqueId());
-        if (!runningLunarClient) {return;}
-
-        Optional<ApolloPlayer> apolloPlayerOpt = Apollo.getPlayerManager().getPlayer(player.getUniqueId());
-
-        apolloPlayerOpt.ifPresent(apolloPlayer -> {
-            cooldownModule.displayCooldown(apolloPlayer, Cooldown.builder()
-                    .name(cooldownName)
-                    .duration(Duration.ofSeconds(cooldown))
-                    .icon(SimpleResourceLocationIcon.builder()
-                            .resourceLocation(pathName)
-                            .size(size)
-                            .build()
-                    )
-                    .build()
-            );
-        });
+public class apolloUtils extends utilManager {
+    public apolloUtils(Main plugin) {
+        super(plugin);
     }
 
-    private void showAdvancedResourcePackCooldown(Player player, String cooldownName, String pathName, long cooldown, float iconHeight, float iconWidth, float minU, float maxU, float minV, float maxV) {
-        boolean runningLunarClient = Apollo.getPlayerManager().hasSupport(player.getUniqueId());
-        if (!runningLunarClient) {return;}
+    // init stuff
+    private final ApolloPlayerManager apolloPlayerManager = Apollo.getPlayerManager();
+    private final ApolloModuleManager apolloModuleManager = Apollo.getModuleManager();
+    private final CooldownModule cooldownModule = apolloModuleManager.getModule(CooldownModule.class);
+    private final ModSettingModule modSettingModule = apolloModuleManager.getModule(ModSettingModule.class);
 
-        Optional<ApolloPlayer> apolloPlayerOpt = Apollo.getPlayerManager().getPlayer(player.getUniqueId());
+    // overrides
+    @Override
+    public void init() {
+        modSettingModule.getOptions().set(ModCooldowns.ENABLED, true);
+    }
 
-        AdvancedResourceLocationIcon icon =
-                AdvancedResourceLocationIcon.builder()
-                        .resourceLocation(pathName)
-                        .width(iconWidth)
-                        .height(iconHeight)
-                        .minU(minU)
-                        .maxU(maxU)
-                        .minV(minV)
-                        .maxV(maxV)
-                        .build();
+    //--// primary
+    public final boolean isUsingLC(Player player) {
+        return apolloPlayerManager.hasSupport(player.getUniqueId());
+    }
 
-        apolloPlayerOpt.ifPresent(apolloPlayer -> {
-            cooldownModule.displayCooldown(apolloPlayer, Cooldown.builder()
-                    .name(cooldownName)
-                    .duration(Duration.ofSeconds(cooldown))
-                    .icon(icon)
-                    .build()
-            );
-        });
+    public final ApolloPlayer getApolloPlayer(Player player) {
+         return apolloPlayerManager.getPlayer(player.getUniqueId()).orElse(null);
+    }
+
+    //--// privs
+    private void showCooldown(Player player, String cooldownName, int itemId, long cooldownTime) {
+        ApolloPlayer apolloPlayer = getApolloPlayer(player);
+        if (apolloPlayer == null) {return;}
+
+        cooldownModule.displayCooldown(apolloPlayer, Cooldown.builder()
+                .name(cooldownName)
+                .duration(Duration.ofSeconds(cooldownTime))
+                .icon(ItemStackIcon.builder()
+                        .itemId(itemId)
+                        .build()
+                ).build()
+        );
     }
 
     private void removeCooldown(Player player, String cooldownName) {
-        boolean runningLunarClient = Apollo.getPlayerManager().hasSupport(player.getUniqueId());
-        if (!runningLunarClient) {return;}
+        ApolloPlayer apolloPlayer = getApolloPlayer(player);
+        if (apolloPlayer == null) {return;}
 
-        Optional<ApolloPlayer> apolloPlayerOpt = Apollo.getPlayerManager().getPlayer(player.getUniqueId());
-
-        apolloPlayerOpt.ifPresent(apolloPlayer -> {
-            cooldownModule.removeCooldown(apolloPlayer, cooldownName);
-        });
+        cooldownModule.removeCooldown(apolloPlayer, cooldownName);
     }
 
-    public void showWindChargeCooldown(Player player) {
-        showSimpleResourcePackCooldown(player, "windcharge-cooldown", "ports:windcharge.png", main.windchargeUtils.windchargeCooldown, 8);
+    //--// publics
+    // show specific cooldowns
+    public final void showWindChargeCooldown(Player player) {
+        //noinspection deprecation
+        showCooldown(player, "windcharge-cooldown", Material.SNOW_BALL.getId(), 2); // ports:windcharge.png
     }
 
-    public void showNoFallDuration(Player player) {
-        showAdvancedResourcePackCooldown(player, "nofall-cooldown", "ports:nofall.png", main.windchargeUtils.activateFallDamageAfterSeconds, 16.0f, 16.0f, 0.0f, 1.0f, 0.0f, 1.0f);
+    public final void showNoFallDuration(Player player) {
+        //noinspection deprecation
+        showCooldown(player, "nofall-cooldown", Material.CHAINMAIL_BOOTS.getId(), 4); // ports:nofall.png
     }
 
-    public void showFallDamageReduction(Player player, int duration, String pathName) {
-        showAdvancedResourcePackCooldown(player, "fallreduction-cooldown", pathName, duration, 16.0f, 16.0f, 0.0f, 1.0f, 0.0f, 1.0f);
+    public final void showFallDamageReduction(Player player) {
+        //noinspection deprecation
+        showCooldown(player, "fallreduction-cooldown", Material.STRING.getId(), 4); // ports:windburst.png
     }
 
-    public void removeNoFallDuration(Player player) {
+    // remove specific cooldowns
+    public final void removeNoFallDuration(Player player) {
         removeCooldown(player, "nofall-cooldown");
     }
 
-    public void removeFallDamageReduction(Player player) {
+    public final void removeFallDamageReduction(Player player) {
         removeCooldown(player, "fallreduction-cooldown");
     }
 }

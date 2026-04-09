@@ -1,0 +1,17 @@
+debug:
+  joinLCwarning: true
+  nonLCmessage: true
+
+mace:
+  minBigGroundDamage: 52
+  fallDamageProtection: 4
+  minY: 0.6
+  minDamage: 5.5
+
+windcharge:
+  radius: 5.0
+  power: 1.5
+  reduceX: 0.8
+  reduceZ: 0.8
+  activateFallDamageAfterSeconds: 4
+  windchargeCooldown: 2
